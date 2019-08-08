@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Modo manual
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+<ion-item>
+  <ion-label position="floating">Introduzca sus medidas (cm)</ion-label>
+  <ion-input [(ngModel)]="medida" type="number"></ion-input>
+</ion-item>
+<ion-button (click)="buscar()" expand="block" fill="outline">Buscar Prendas</ion-button>
+
+
+<h3>Resultados:</h3>
+
+<ion-card *ngFor="let prenda of this.resultados" class="item">
+  <ion-card-header>
+    <ion-card-subtitle> {{prenda.marca}}</ion-card-subtitle>
+    <ion-card-title> {{prenda.nombre}}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+  <ion-row>
+    <ion-col>
+      <div><img class="image" src="{{prenda.url}}"></div>
+    </ion-col>
+    <ion-col> 
+      <div> {{prenda.descripcion}}</div>
+    </ion-col>
+  </ion-row>
+    
+    
+  </ion-card-content>
+</ion-card>
+</ion-content>
