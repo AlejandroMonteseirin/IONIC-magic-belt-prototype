@@ -5,7 +5,33 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>Pulsa el botón de Tomar foto y apunta a la marca de tu cinturon,enfoca cuidadosamente</ion-content>
-<img id="img" src="this.image"/> 
+<ion-content>Pulsa el botón de Tomar foto y apunta a la marca de tu cinturon,enfoca cuidadosamente
 
+<ion-grid>
+  <ion-row>
+      <ion-col size="4"  >
+        <div class="imagen">
+          <img  src="{{this.image}}"/> 
+        </div>
+      </ion-col>
+      <ion-col size="4" offset="4">
+        <div class="imagen">
+          <canvas class="testImage" id="canvasOutput2" ></canvas>
+        </div>
+      </ion-col>
+  </ion-row>
+  <ion-row>
+      <div class="imagen">
+        <canvas class="testImage2" id="canvasOutput" ></canvas>
+        <canvas class="testImage2" id="canvasOutput2" ></canvas>
+
+      </div>
+  </ion-row>
+
+</ion-grid>
+</ion-content>
 <ion-button (click)="takePhoto()" expand="block" fill="outline">Tomar foto</ion-button>
+<ion-button class="verde" *ngIf="this.image" (click)="procesar()" expand="block" fill="outline">Procesar</ion-button>
+          <img class="hidden" id="cinturon" src="assets/img/test.png"/> 
+                    <img class="hidden" id="img" src="{{this.image}}"/> 
+
