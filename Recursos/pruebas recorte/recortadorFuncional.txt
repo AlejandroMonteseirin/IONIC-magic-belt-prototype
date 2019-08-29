@@ -1,0 +1,83 @@
+
+
+function rotatePoint(cx, cy, x, y, angle) {
+    var radians = (Math.PI / 180) * angle,
+        cos = Math.cos(radians),
+        sin = Math.sin(radians),
+        nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
+        ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+    return [nx, ny];
+
+};
+
+let src = cv.imread('canvasInput');
+ let dst = new cv.Mat();
+ let test = cv.imread('canvasInput');
+
+
+    cv.threshold(src, dst, 180, 255, cv.THRESH_BINARY);
+    cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY, 0);
+    let contours = new cv.MatVector();
+    let hierarchy = new cv.Mat();
+    cv.findContours(dst, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+    let areaMax=0;
+    let indexMax=0;
+    let area=-1;
+    for (let i = 0; i < contours.size(); ++i) {
+      let cnt = contours.get(i);
+      area = cv.contourArea(cnt)
+      if(area>areaMax){
+      areaMax=area;
+      indexMax=i;
+      }
+    }
+   
+
+    let cntFinal = contours.get(indexMax);
+   let rotatedRect = cv.minAreaRect(cntFinal );
+let vertices = cv.RotatedRect.points(rotatedRect);
+console.log(vertices)
+angleDeg = Math.atan2(vertices[0].y - vertices[1].y, vertices[0].x - vertices[1].x) * 180 / Math.PI;
+console.log(angleDeg);
+let center = new cv.Point(src.cols / 2, src.rows / 2);
+let dsize = new cv.Size(src.cols, src.rows);
+let M = cv.getRotationMatrix2D(center, angleDeg, 1);
+cv.warpAffine(test, test, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+let maxX=0;
+let maxY=0;
+let minX=9999999;
+let minY=9999999;
+let pointx;
+let pointy;
+let pointRotado;
+console.log(vertices.length);
+
+for (i = 0; i < vertices.length; i++) { 
+
+pointRotado=rotatePoint(center.x,center.y, vertices[i].x,vertices[i].y, angleDeg );
+console.log([vertices[i].x,vertices[i].y]);
+
+  if(pointRotado[0]>maxX)
+    maxX=pointRotado[0];
+  if(pointRotado[1]>maxY)
+    maxY=pointRotado[1];
+  if(pointRotado[0]<minX)
+    minX=pointRotado[0];
+  if(pointRotado[1]<minY)
+    minY=pointRotado[1];
+}
+//EL ORIGEN DEL EJE ES ARRIBA A LA IZQUIERDA xd
+let rectFinal = new cv.Rect(minX,minY,(maxX-minX), (maxY-minY));
+console.log(maxX,maxY,minX,minY);
+console.log(minX,maxY,maxX-minX, maxY-minY);
+//console.log(test.rows,test.height)
+ let final=test.roi(rectFinal);
+// pintar 
+let rectangleColor = new cv.Scalar(255, 0, 0);
+
+let point1 = new cv.Point(maxX, minY);
+let point2 = new cv.Point(minX, maxY);
+//cv.rectangle(test, point1, point2, rectangleColor, 2, cv.LINE_AA, 0);
+
+cv.imshow('canvasOutput', final);
+src.delete(); dst.delete(); hierarchy.delete(); contours.delete(); 

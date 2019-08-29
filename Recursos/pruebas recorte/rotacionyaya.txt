@@ -1,0 +1,73 @@
+
+function rotatePoint(pivot, point, angle ) {
+  // Rotate clockwise, angle in radiansdsfdsf
+  var x = Math.round((Math.cos(angle* Math.PI / 180) * (point[0] - pivot.x)) -
+                     (Math.sin(angle* Math.PI / 180) * (point[1] - pivot.y)) +
+                     pivot.x);
+   y= Math.round((Math.sin(angle* Math.PI / 180) * (point[0] - pivot.x)) +
+                     (Math.cos(angle* Math.PI / 180) * (point[1] - pivot.y)) +
+                     pivot.y);
+  return [x, y];
+};
+
+let src = cv.imread('canvasInput');
+ let dst = new cv.Mat();
+ let test = cv.imread('canvasInput');
+
+
+    cv.threshold(src, dst, 180, 255, cv.THRESH_BINARY);
+    cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY, 0);
+    let contours = new cv.MatVector();
+    let hierarchy = new cv.Mat();
+    cv.findContours(dst, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+    let areaMax=0;
+    let indexMax=0;
+    let area=-1;
+    for (let i = 0; i < contours.size(); ++i) {
+      let cnt = contours.get(i);
+      area = cv.contourArea(cnt)
+      if(area>areaMax){
+      areaMax=area;
+      indexMax=i;
+      }
+    }
+   
+
+    let cntFinal = contours.get(indexMax);
+   let rotatedRect = cv.minAreaRect(cntFinal );
+let vertices = cv.RotatedRect.points(rotatedRect);
+console.log(vertices)
+angleDeg = Math.atan2(vertices[0].y - vertices[1].y, vertices[0].x - vertices[1].x) * 180 / Math.PI;
+console.log(angleDeg);
+let center = new cv.Point(src.cols / 2, src.rows / 2);
+let dsize = new cv.Size(src.cols, src.rows);
+let M = cv.getRotationMatrix2D(center, angleDeg, 1);
+cv.warpAffine(test, test, M, dsize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar());
+let maxX=0;
+let maxY=0;
+let minX=9999999;
+let minY=999999;
+let pointx;
+let pointy;
+let pointRotado;
+console.log(vertices.length);
+
+for (i = 0; i < vertices.length; i++) { 
+
+pointRotado=rotatePoint(center, [vertices[i].x,vertices[i].y], angleDeg );
+console.log([vertices[i].x,vertices[i].y]);
+
+  if(pointRotado[0]>maxX)
+    maxX=vertices[i].x;
+  if(pointRotado[1]>maxY)
+    maxY=vertices[i].y;
+  if(pointRotado[0]<minX)
+    minX=vertices[i].x;
+  if(pointRotado[1]<minY)
+    minY=vertices[i].y;
+}
+let rectFinal = new cv.Rect(minX,maxY,maxX-minX, maxY-minY);
+console.log(maxX,maxY,minX,minY);
+    let final=test.roi(rectFinal);
+cv.imshow('canvasOutput', final);
+src.delete(); dst.delete(); hierarchy.delete(); contours.delete(); 
