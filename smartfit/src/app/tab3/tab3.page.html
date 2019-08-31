@@ -6,17 +6,29 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>Pulsa el botón de Tomar foto y apunta a la marca de tu cinturon,enfoca cuidadosamente
-
+ <ion-item>
+    <ion-label>Activar autorecorte</ion-label>
+    <ion-toggle [(ngModel)]="autocut"></ion-toggle>
+  </ion-item>
 <ion-grid>
   <ion-row>
       <ion-col size="4"  >
         <div class="imagen">
-          <img  src="{{this.image}}"/> 
+          <img *ngIf="this.image[0]" src="{{this.image[0]}}"/> 
+          <img *ngIf="this.image[1]" src="{{this.image[1]}}"/> 
+          <img *ngIf="this.image[2]" src="{{this.image[2]}}"/> 
+
         </div>
       </ion-col>
       <ion-col size="4" offset="4">
-        <div class="imagen">
-          <canvas class="testImage" id="canvasOutput2" ></canvas>
+        <div *ngIf="this.medida[0]" class="imagen">
+        Pecho  {{this.medida[0]}}cm <br>
+        </div>
+        <div *ngIf="this.medida[1]" class="imagen">
+        Cintura  {{this.medida[1]}}cm <br>
+        </div>
+        <div *ngIf="this.medida[2]" class="imagen">
+        Cadera  {{this.medida[2]}}cm <br>
         </div>
       </ion-col>
   </ion-row>
@@ -24,14 +36,30 @@
       <div class="imagen">
         <canvas class="testImage2" id="canvasOutput" ></canvas>
         <canvas class="testImage2" id="canvasOutput2" ></canvas>
+      
 
       </div>
   </ion-row>
+    <canvas class="testImage3" id="threshold" ></canvas>
+    <canvas class="testImage3" id="thresholdbyn" ></canvas>
+    <canvas class="testImage3" id="contornos" ></canvas>
+    <canvas class="testImage3" id="pintado" ></canvas>
+    <canvas class="testImage3" id="recorte" ></canvas>
+
 
 </ion-grid>
 </ion-content>
-<ion-button (click)="takePhoto()" expand="block" fill="outline">Tomar foto</ion-button>
-<ion-button class="verde" *ngIf="this.image" (click)="procesar()" expand="block" fill="outline">Procesar</ion-button>
-          <img class="hidden" id="cinturon" src="assets/img/test.png"/> 
-                    <img class="hidden" id="img" src="{{this.image}}"/> 
+<ion-button (click)="takePhoto(0)" expand="block" fill="outline">Tomar foto Pecho</ion-button>
+<!--<ion-button (click)="takePhoto(1)" expand="block" fill="outline">Tomar foto Cintura</ion-button>
+<ion-button (click)="takePhoto(2)" expand="block" fill="outline">Tomar foto Cadera</ion-button>-->
+<img class="hidden" id="cinturon" src="assets/img/test.png"/> 
+<img class="hidden" id="img0" src="{{this.image[0]}}"/> 
+<img class="hidden" id="img1" src="{{this.image[1]}}"/>
+<img class="hidden" id="img2" src="{{this.image[2]}}"/> 
+
+<!--
+<ion-button class="verde" *ngIf="this.image.length>2" (click)="procesarTodo()" expand="block" fill="outline">Procesar</ion-button>
+-->        
+
+
 

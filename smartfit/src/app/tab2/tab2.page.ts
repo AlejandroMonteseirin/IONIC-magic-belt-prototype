@@ -15,7 +15,7 @@ export class Tab2Page {
     console.log(this.medida);
 
     //this.resultados.push({'nombre':'Pantalon de '+this.medida+"cm",'medida':this.medida, "marca":"Inditex","url":"https://media.wuerth.com/stmedia/modyf/shop/900px/2125180.jpg","descripcion":"pantalon muy cómodo 100% algodon..."});
-    this.resultados=[{'nombre':'Pantalon de '+this.medida+"cm",'medida':this.medida, "marca":"Inditex","url":"https://media.wuerth.com/stmedia/modyf/shop/900px/2125180.jpg","descripcion":"pantalon muy cómodo 100% algodon..."}];
+    this.resultados=[{'nombre':'Pantalon1','medida':this.medida, "marca":"Inditex","url":"https://media.wuerth.com/stmedia/modyf/shop/900px/2125180.jpg","descripcion":"pantalon muy cómodo 100% algodon..."},{'nombre':'Pantalon1','medida':this.medida, "marca":"Inditex","url":"https://media.wuerth.com/stmedia/modyf/shop/900px/2125180.jpg","descripcion":"pantalon muy cómodo 100% algodon..."}];
 
   }
 }

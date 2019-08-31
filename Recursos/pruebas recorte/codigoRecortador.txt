@@ -11,10 +11,9 @@ function rotatePoint(cx, cy, x, y, angle) {
 let src = cv.imread('canvasInput');
  let dst = new cv.Mat();
  let test = cv.imread('canvasInput');
+ cv.cvtColor(src,src, cv.COLOR_RGB2GRAY)
 
-
-    cv.threshold(src, dst, 180, 255, cv.THRESH_BINARY);
-    cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY, 0);
+cv.threshold(src, dst, 120, 255, cv.THRESH_TOZERO);
     let contours = new cv.MatVector();
     let hierarchy = new cv.Mat();
     cv.findContours(dst, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
@@ -44,7 +43,7 @@ let vertices = cv.RotatedRect.points(rotatedRect);
 //COJO LOS DOS MAS DE ARRIBA  Y EL PRIMERO ES EL DE MAS A LA IQUIERDA
 for (i = 0; i < vertices.length; i++) { 
 
-  if(vertices[i].y<arriba1valor){
+  if(vertices[i].y<=arriba1valor){
     if(arriba1 !=undefined){
      arriba2=arriba1;
      arriba2valor=arriba1.y
@@ -53,7 +52,7 @@ for (i = 0; i < vertices.length; i++) {
     arriba1=vertices[i];
 
   }
-  if(vertices[i].y>arriba1valor && vertices[i].y<arriba2valor){
+  if(vertices[i].y>arriba1valor && vertices[i].y<=arriba2valor){
     arriba2=vertices[i];
     arriba2valor=vertices[i].y;
   }
