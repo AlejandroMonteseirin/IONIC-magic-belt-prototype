@@ -5,7 +5,63 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>Pulsa el botón de Tomar foto y apunta a la marca de tu cinturon,enfoca cuidadosamente
+
+<ion-content>
+<ion-grid>
+  <ion-row>
+      <ion-col size="3">
+      Imagen
+      </ion-col>
+      <ion-col size="9" >
+      <br><br><br>
+      <table style="width:100%">
+        <tr class="center">
+          <th></th>
+          <th></th>
+          <th class="holgura">Holgura Deseada</th>
+        </tr>
+        <tr class="center">
+          <td><b>Pecho</b></td>
+          <td *ngIf="this.medida[0]">{{this.medida[0]}} cm</td>
+          <td *ngIf="!this.medida[0]" class="invisible">90.641 cm</td>
+          <td class="holgura">50</td>
+        </tr>
+        <tr class="center">
+          <td><b>Cintura</b></td>
+          <td *ngIf="this.medida[1]">{{this.medida[1]}} cm</td>
+          <td *ngIf="!this.medida[1]" class="invisible">90.641 cm</td>
+          <td class="holgura">94</td>
+        </tr>
+        <tr class="center">
+          <td><b>Cadera</b></td>
+          <td *ngIf="this.medida[2]">{{this.medida[2]}} cm</td>
+          <td *ngIf="!this.medida[2]" class="invisible">90.641 cm</td>
+          <td class="holgura">80</td>
+        </tr>
+      </table>
+      <br> <br>
+      <div class="padding">
+        <p> Fotografía la ventana de la banda de medición de </p>
+        <button class="botonParteDelCuerpo"> <h4>CADERA </h4></button>
+      </div>
+      <br>
+      <br>
+      </ion-col>
+  </ion-row>
+  <ion-item>
+        <ion-label>Activar autorecorte</ion-label>
+        <ion-toggle [(ngModel)]="autocut"></ion-toggle>
+  </ion-item>
+</ion-grid>
+
+
+
+
+<!-- DEBUG VIEW
+<ion-content>
+
+Pulsa el botón de Tomar foto y apunta a la marca de tu cinturon,enfoca cuidadosamente
+
  <ion-item>
     <ion-label>Activar autorecorte</ion-label>
     <ion-toggle [(ngModel)]="autocut"></ion-toggle>
@@ -50,16 +106,13 @@
 </ion-grid>
 </ion-content>
 <ion-button (click)="takePhoto(0)" expand="block" fill="outline">Tomar foto Pecho</ion-button>
-<!--<ion-button (click)="takePhoto(1)" expand="block" fill="outline">Tomar foto Cintura</ion-button>
-<ion-button (click)="takePhoto(2)" expand="block" fill="outline">Tomar foto Cadera</ion-button>-->
+<ion-button (click)="takePhoto(1)" expand="block" fill="outline">Tomar foto Cintura</ion-button>
+<ion-button (click)="takePhoto(2)" expand="block" fill="outline">Tomar foto Cadera</ion-button>
 <img class="hidden" id="cinturon" src="assets/img/test.png"/> 
 <img class="hidden" id="img0" src="{{this.image[0]}}"/> 
 <img class="hidden" id="img1" src="{{this.image[1]}}"/>
 <img class="hidden" id="img2" src="{{this.image[2]}}"/> 
-
-<!--
-<ion-button class="verde" *ngIf="this.image.length>2" (click)="procesarTodo()" expand="block" fill="outline">Procesar</ion-button>
--->        
+-->     
 
 
 
