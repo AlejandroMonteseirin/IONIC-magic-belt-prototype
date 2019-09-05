@@ -21,7 +21,8 @@
     height: auto;
 }
 .holgura{
-    background-color: #dddddd;
+    background-color: #dddddd !important;
+    
 }
 .center{
     text-align: center;
@@ -42,4 +43,12 @@ td{
     text-align: center;
     background-color: black;
     color: whitesmoke;
+}
+.color{
+    background-color:rgb(255, 191, 0);
+    --background:rgb(255, 191, 0) !important;
+
+}
+.alingright{
+    text-align: right;
 }

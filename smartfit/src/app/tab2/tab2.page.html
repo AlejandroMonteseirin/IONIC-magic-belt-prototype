@@ -1,22 +1,29 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Modo manual
+<ion-header class="color">
+  <ion-toolbar class="color">
+    <ion-title class="color">
+      Tienda
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-
+<ion-item>
+    <ion-label>Tipo de prenda</ion-label>
+    <ion-select [(ngModel)]="tipoPrenda" placeholder="Elige una">
+      <ion-select-option value="camisa">Camiseta</ion-select-option>
+      <ion-select-option value="pantalon">Pantalon</ion-select-option>
+    </ion-select>
+</ion-item>
+<!--
 <ion-item>
   <ion-label position="floating">Introduzca sus medidas (cm)</ion-label>
   <ion-input [(ngModel)]="medida" type="number"></ion-input>
 </ion-item>
 <ion-button (click)="buscar()" expand="block" fill="outline">Buscar Prendas</ion-button>
+-->
 
-
-<h3>Resultados:</h3>
+<h3 *ngIf="this.resultados.length>0">Resultados:</h3>
 
 <ion-card *ngFor="let prenda of this.resultados" class="item">
   <ion-card-header>

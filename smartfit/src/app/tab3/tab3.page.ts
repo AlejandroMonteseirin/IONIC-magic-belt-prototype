@@ -21,12 +21,14 @@ export class Tab3Page {
     encodingType: this.camera.EncodingType.JPEG,
     destinationType: this.camera.DestinationType.FILE_URI
   }
+  holgura:any=[0,0,0];
   cinturon:any=null;
   image:any=[];
   opencvimage:any=null;
   medida:any=[];
   autocut=false;
-  partesdelcuerpo=['pecho','cintura','cadera'];
+  partedelcuerpoquetoca:any;
+  partesdelcuerpo=['PECHO','CINTURA','CADERA'];
   constructor(private file:File, private camera: Camera,private platform:Platform) {
     console.log("inicializando OpenCV... ")
     if(cv!=undefined){
@@ -35,6 +37,7 @@ export class Tab3Page {
     }else{
       console.log("Inicialización fallida :(");
     }
+    this.partedelcuerpoquetoca=0;
   }
   
 
@@ -43,7 +46,7 @@ export class Tab3Page {
   takePhoto(partecuerpo) {
     /** temp autoreset */
     this.cinturon=null;
-    this.medida=[];
+    /*
     cv.imshow('canvasOutput',cv.Mat.zeros(1, 1, 0));
     cv.imshow('thresholdbyn', cv.Mat.zeros(1, 1, 0));
     cv.imshow('threshold', cv.Mat.zeros(1, 1, 0));
@@ -51,7 +54,7 @@ export class Tab3Page {
     cv.imshow('recorte', cv.Mat.zeros(1, 1, 0));
     cv.imshow('pintado', cv.Mat.zeros(1, 1, 0));
 
-    /** */
+     */
     if(this.autocut){
       this.options = {
         quality: 100,
@@ -87,8 +90,10 @@ export class Tab3Page {
                       if(this.autocut){
                         let recorte =this.recortador(partecuerpo);
                         this.procesar(partecuerpo,recorte);
+                        this.partedelcuerpoquetoca=partecuerpo+1;
                       }else{
                         this.procesar(partecuerpo,null);
+                        this.partedelcuerpoquetoca=partecuerpo+1;
                       }
                     },
                     500);
@@ -125,7 +130,7 @@ export class Tab3Page {
     let color = new cv.Scalar(255, 0, 0, 255);
     let point = new cv.Point(maxPoint.x + this.opencvimage.size().width, maxPoint.y + this.opencvimage.size().height);
     cv.rectangle(this.cinturon, maxPoint, point, color, 2, cv.LINE_8, 0);
-    cv.imshow('canvasOutput', this.cinturon);
+   /* cv.imshow('canvasOutput', this.cinturon);*/
     this.medida[index]=(maxPoint.x+ this.opencvimage.cols)*0.0211663216
   }
   /*
@@ -179,9 +184,9 @@ export class Tab3Page {
     let dst = new cv.Mat();
 
     cv.cvtColor(src,dst, cv.COLOR_RGB2GRAY);
-    cv.imshow('thresholdbyn', dst);
+    /*cv.imshow('thresholdbyn', dst);*/
     cv.threshold(dst, dst, 120, 255, cv.THRESH_TOZERO);
-    cv.imshow('threshold', dst);
+  /*  cv.imshow('threshold', dst);*/
     
 
     let contours = new cv.MatVector();
@@ -196,7 +201,7 @@ export class Tab3Page {
                                 Math.round(Math.random() * 255));
       cv.drawContours(contornos, contours, i, color, 1, cv.LINE_8, hierarchy, 100);
     }
-    cv.imshow('contornos', contornos);
+  /*  cv.imshow('contornos', contornos);*/
 
 
     let areaMax=0;
@@ -278,11 +283,11 @@ export class Tab3Page {
     let point1 = new cv.Point(maxX, minY);
     let point2 = new cv.Point(minX, maxY);
     let pintado = final;
-    cv.rectangle(pintado, point1, point2, rectangleColor, 2, cv.LINE_AA, 0);
+    cv.rectangle(pintado, point1, point2, rectangleColor, 2, cv.LINE_AA, 0);/*
     cv.imshow('pintado', final);
 
     cv.imshow('recorte', final);
-
+*/
     return final;
   }
 }

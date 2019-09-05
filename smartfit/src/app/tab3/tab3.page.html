@@ -1,7 +1,7 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Cámara
+<ion-header class="color">
+  <ion-toolbar class="color">
+    <ion-title class="color">
+      Medición
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -23,37 +23,68 @@
         <tr class="center">
           <td><b>Pecho</b></td>
           <td *ngIf="this.medida[0]">{{this.medida[0]}} cm</td>
-          <td *ngIf="!this.medida[0]" class="invisible">90.641 cm</td>
-          <td class="holgura">50</td>
+          <td *ngIf="!this.medida[0]" class="invisible">90.641454 cm</td>
+          <td class="holgura">
+            <ion-item color="grey">
+                <ion-input class="alingright holgura" type="number" [(ngModel)]="holgura[0]"  max="99"></ion-input> cm
+            </ion-item>
+          </td>
         </tr>
         <tr class="center">
           <td><b>Cintura</b></td>
           <td *ngIf="this.medida[1]">{{this.medida[1]}} cm</td>
-          <td *ngIf="!this.medida[1]" class="invisible">90.641 cm</td>
-          <td class="holgura">94</td>
+          <td *ngIf="!this.medida[1]" class="invisible">90.641454 cm</td>
+          <td class="holgura">
+          <ion-item color="grey">
+                <ion-input class="alingright holgura" type="number" [(ngModel)]="holgura[1]"  max="99"></ion-input> cm
+            </ion-item></td>
         </tr>
         <tr class="center">
           <td><b>Cadera</b></td>
           <td *ngIf="this.medida[2]">{{this.medida[2]}} cm</td>
-          <td *ngIf="!this.medida[2]" class="invisible">90.641 cm</td>
-          <td class="holgura">80</td>
+          <td *ngIf="!this.medida[2]" class="invisible">90.641454 cm</td>
+          <td class="holgura">
+            <ion-item color="grey">
+                <ion-input class="alingright holgura" type="number" [(ngModel)]="holgura[2]"  max="99"></ion-input> cm
+            </ion-item>
+          </td>
         </tr>
       </table>
       <br> <br>
-      <div class="padding">
+      <div class="padding" *ngIf="partedelcuerpoquetoca<3">
         <p> Fotografía la ventana de la banda de medición de </p>
-        <button class="botonParteDelCuerpo"> <h4>CADERA </h4></button>
+        <button (click)="takePhoto(partedelcuerpoquetoca)" class="botonParteDelCuerpo"> <h4>{{partesdelcuerpo[partedelcuerpoquetoca]}} </h4></button>
       </div>
       <br>
       <br>
       </ion-col>
   </ion-row>
   <ion-item>
-        <ion-label>Activar autorecorte</ion-label>
+        <ion-label>Activar Autorecorte</ion-label>
         <ion-toggle [(ngModel)]="autocut"></ion-toggle>
   </ion-item>
-</ion-grid>
+  <br><br>
+  <ion-row>
+    <ion-col *ngIf="partedelcuerpoquetoca>0">
+                <button (click)="takePhoto(0)" > <h4>Repetir foto pecho</h4></button>
+    </ion-col>
+    <ion-col *ngIf="partedelcuerpoquetoca>1">
+                <button (click)="takePhoto(1)" class="botonParteDelCuerpo"> <h4>Repetir foto Cintura</h4></button>
+    </ion-col>
+    <ion-col *ngIf="partedelcuerpoquetoca>2">
+                <button (click)="takePhoto(2)"> <h4>Repetir foto Cadera</h4></button>
+    </ion-col>
+  </ion-row>
 
+
+</ion-grid>
+<img class="hidden" id="img0" src="{{this.image[0]}}"/> 
+<img class="hidden" id="img1" src="{{this.image[1]}}"/>
+<img class="hidden" id="img2" src="{{this.image[2]}}"/> 
+<img class="hidden" id="cinturon" src="assets/img/test.png"/> 
+
+
+</ion-content>
 
 
 
@@ -109,10 +140,6 @@ Pulsa el botón de Tomar foto y apunta a la marca de tu cinturon,enfoca cuidados
 <ion-button (click)="takePhoto(1)" expand="block" fill="outline">Tomar foto Cintura</ion-button>
 <ion-button (click)="takePhoto(2)" expand="block" fill="outline">Tomar foto Cadera</ion-button>
 <img class="hidden" id="cinturon" src="assets/img/test.png"/> 
-<img class="hidden" id="img0" src="{{this.image[0]}}"/> 
-<img class="hidden" id="img1" src="{{this.image[1]}}"/>
-<img class="hidden" id="img2" src="{{this.image[2]}}"/> 
+
 -->     
-
-
 
