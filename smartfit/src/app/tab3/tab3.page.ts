@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Platform } from '@ionic/angular'; //import Platform
 import { File } from '@ionic-native/file/ngx';
-import { VirtualTimeScheduler } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
 declare var cv: any;
 @Component({
@@ -29,7 +29,7 @@ export class Tab3Page {
   autocut=false;
   partedelcuerpoquetoca:any;
   partesdelcuerpo=['PECHO','CINTURA','CADERA'];
-  constructor(private file:File, private camera: Camera,private platform:Platform) {
+  constructor(private storage:Storage,private file:File, private camera: Camera,private platform:Platform) {
     console.log("inicializando OpenCV... ")
     if(cv!=undefined){
       console.log("Inicialización Correcta!");
@@ -37,11 +37,27 @@ export class Tab3Page {
     }else{
       console.log("Inicialización fallida :(");
     }
+    this.storage.set("medidas",this.medida);
+    this.storage.set('holgura', this.holgura);
+    /*
+    this.storage.set("medidas",[81,64,93]);
+    this.medida=[81,64,93];
+    */
     this.partedelcuerpoquetoca=0;
+    /*
+    this.storage.get("medidas").then((res)=>{
+      this.medida=res;
+      this.partedelcuerpoquetoca=res.length;
+    });
+    */
   }
   
 
-  
+  changeHolgura(){
+    console.log("guardando Holgura");
+    this.storage.set('holgura', this.holgura);
+
+  }
   
   takePhoto(partecuerpo) {
     /** temp autoreset */
@@ -90,10 +106,10 @@ export class Tab3Page {
                       if(this.autocut){
                         let recorte =this.recortador(partecuerpo);
                         this.procesar(partecuerpo,recorte);
-                        this.partedelcuerpoquetoca=partecuerpo+1;
+                        this.partedelcuerpoquetoca=this.partedelcuerpoquetoca+1;
                       }else{
                         this.procesar(partecuerpo,null);
-                        this.partedelcuerpoquetoca=partecuerpo+1;
+                        this.partedelcuerpoquetoca=this.partedelcuerpoquetoca+1;
                       }
                     },
                     500);
@@ -131,7 +147,12 @@ export class Tab3Page {
     let point = new cv.Point(maxPoint.x + this.opencvimage.size().width, maxPoint.y + this.opencvimage.size().height);
     cv.rectangle(this.cinturon, maxPoint, point, color, 2, cv.LINE_8, 0);
    /* cv.imshow('canvasOutput', this.cinturon);*/
-    this.medida[index]=(maxPoint.x+ this.opencvimage.cols)*0.0211663216
+    //this.medida[index]=(maxPoint.x+ this.opencvimage.cols)*0.0211776859+64;
+    this.medida[index]=(maxPoint.x+ this.opencvimage.cols)*0.0211776859+64;
+    console.log("mide x");
+    console.log(this.opencvimage.cols*0.0211776859);
+    this.storage.set('medidas', this.medida);
+
   }
   /*
   procesarTodo(){

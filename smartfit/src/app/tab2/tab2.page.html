@@ -1,47 +1,93 @@
 <ion-header class="color">
   <ion-toolbar class="color">
     <ion-title class="color">
-      Tienda
+      <img class="imagen" src="/assets/img/logo.png" alt="" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<h3 style="text-align:center">Selecciona un tipo de prenda</h3>
+<ion-row>
+  <ion-col>
+        <ion-select style="text-align:right;padding-top: 1em;" [(ngModel)]="tipoPrenda">
+          <ion-select-option value="Camiseta">Camiseta</ion-select-option>
+          <ion-select-option value="Vestido">Vestido</ion-select-option>
+        </ion-select>
+  </ion-col>
+  <ion-col>
+        <img (click)="buscar()" class="imagen" src="/assets/img/Boton-Lupa.png" style="width:30%" alt="" />
 
-<ion-item>
-    <ion-label>Tipo de prenda</ion-label>
-    <ion-select [(ngModel)]="tipoPrenda" placeholder="Elige una">
-      <ion-select-option value="camisa">Camiseta</ion-select-option>
-      <ion-select-option value="pantalon">Pantalon</ion-select-option>
-    </ion-select>
-</ion-item>
+  </ion-col>
+
+</ion-row>
 <!--
 <ion-item>
   <ion-label position="floating">Introduzca sus medidas (cm)</ion-label>
   <ion-input [(ngModel)]="medida" type="number"></ion-input>
 </ion-item>
-<ion-button (click)="buscar()" expand="block" fill="outline">Buscar Prendas</ion-button>
--->
 
-<h3 *ngIf="this.resultados.length>0">Resultados:</h3>
+<<ion-button *ngIf="tipoPrenda!=null" (click)="buscar()" expand="block" fill="outline">Buscar Prendas</ion-button>-->
+<div style="text-align: center;color:red"*ngIf="error">Debes tomar las medidas primero</div>
+<div style="text-align: center;color:red"*ngIf="noresult">Ninguna prenda te es válida, aumenta la holgura</div>
+  <div *ngIf="this.resultados.length==0">
+    <img class="imagen grande" src="/assets/img/bolsa.jpg" alt="" />
+  </div>
+  <div *ngIf="this.resultados.length>0">
+    <h3 style="text-align: center;" >Resultados:</h3>
+  <ng-container *ngFor="let prenda of this.resultados">
+    <ion-card  class="item">
+      <ion-card-content>
+          <div><img  src="{{prenda.url}}"></div>
+          <br>
+          <div style="background-color:#e0dede; padding:1em"><h2 style="text-align:center;color:black"><b>{{tipoPrenda}} Modelo {{prenda.talla}}</b></h2></div>
+          <br>
+      <table style="width:100%">
+        <tr >
+          <th></th>
+          <th><b>PECHO</b></th>
+          <th><b>CINTURA</b></th>
+          <th><b>CADERA</b></th>
 
-<ion-card *ngFor="let prenda of this.resultados" class="item">
-  <ion-card-header>
-    <ion-card-subtitle> {{prenda.marca}}</ion-card-subtitle>
-    <ion-card-title> {{prenda.nombre}}</ion-card-title>
-  </ion-card-header>
+        </tr>
+        <tr style="text-align: center;" >
+          <td><b>CUERPO</b></td>
+          <td>{{medida[0].toFixed(2)}}</td>
+          <td>{{medida[1].toFixed(2)}}</td>
+          <td>{{medida[2].toFixed(2)}}</td>
+        </tr>
+        <tr style="text-align: center;" >
+          <td><b>PRENDA</b></td>
+          <td>{{prenda.medidas[0].toFixed(2)}}</td>
+          <td>{{prenda.medidas[1].toFixed(2)}}</td>
+          <td>{{prenda.medidas[2].toFixed(2)}}</td>
+        </tr>
+        <tr style="text-align: center;" ><!--background-color:#e0dede" -->
+          <td><b>HOLGURA</b></td>
+          <td>{{(prenda.medidas[0]-medida[0]-holgura[0]).toFixed(2)}}</td>
+          <td>{{(prenda.medidas[1]-medida[1]-holgura[0]).toFixed(2)}}</td>
+          <td>{{(prenda.medidas[2]-medida[2]-holgura[0]).toFixed(2)}}</td>
+        </tr>
+        <!--
+        <tr style="text-align: center;" >
+          <td><b>Ajuste</b></td>
+          <td *ngIf="this.calculador(prenda.medidas[0]-medida[0])[0]=='verde'" class="verde">{{this.calculador(prenda.medidas[0]-medida[0])[1]}}</td>
+          <td *ngIf="this.calculador(prenda.medidas[0]-medida[0])[0]=='naranja'" class="naranja">{{this.calculador(prenda.medidas[0]-medida[0])[1]}}</td>
+          <td *ngIf="this.calculador(prenda.medidas[0]-medida[0])[0]=='rojo'" class="rojo">{{this.calculador(prenda.medidas[0]-medida[0])[1]}}</td>
+          <td *ngIf="this.calculador(prenda.medidas[1]-medida[1])[0]=='verde'" class="verde">{{this.calculador(prenda.medidas[1]-medida[1])[1]}}</td>
+          <td *ngIf="this.calculador(prenda.medidas[1]-medida[1])[0]=='naranja'" class="naranja">{{this.calculador(prenda.medidas[1]-medida[1])[1]}}</td>
+          <td *ngIf="this.calculador(prenda.medidas[1]-medida[1])[0]=='rojo'" class="rojo">{{this.calculador(prenda.medidas[1]-medida[1])[1]}}</td>
+          <td *ngIf="this.calculador(prenda.medidas[2]-medida[2])[0]=='verde'" class="verde">{{this.calculador(prenda.medidas[2]-medida[2])[1]}}</td>
+          <td *ngIf="this.calculador(prenda.medidas[2]-medida[2])[0]=='naranja'" class="naranja">{{this.calculador(prenda.medidas[2]-medida[2])[1]}}</td>
+          <td *ngIf="this.calculador(prenda.medidas[2]-medida[2])[0]=='rojo'" class="rojo">{{this.calculador(prenda.medidas[2]-medida[2])[1]}}</td>
 
-  <ion-card-content>
-  <ion-row>
-    <ion-col>
-      <div><img class="image" src="{{prenda.url}}"></div>
-    </ion-col>
-    <ion-col> 
-      <div> {{prenda.descripcion}}</div>
-    </ion-col>
-  </ion-row>
-    
-    
-  </ion-card-content>
-</ion-card>
+         
+        </tr>
+        -->
+      </table>
+      </ion-card-content>
+    </ion-card>
+    <br><br>
+  </ng-container>
+  </div>
 </ion-content>

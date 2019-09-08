@@ -37,6 +37,7 @@ td{
 }
 .padding{
     padding: 2em;
+    padding-top:0em;
 }
 .botonParteDelCuerpo{
     width: 100%;
@@ -52,3 +53,7 @@ td{
 .alingright{
     text-align: right;
 }
+.item-inner {
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+  }

@@ -1,7 +1,7 @@
 <ion-header class="color">
   <ion-toolbar class="color">
     <ion-title class="color">
-      Medición
+      <img class="imagen" src="/assets/img/logo.png" alt="" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,56 +9,87 @@
 <ion-content>
 <ion-grid>
   <ion-row>
-      <ion-col size="3">
-      Imagen
+      <ion-col size="4">
+      <div style="padding:0.5em;padding-top:3em">
+        <img *ngIf="partedelcuerpoquetoca==0" src="assets/img/CuerpoPerimetroPecho.jpg"/> 
+        <img *ngIf="partedelcuerpoquetoca==1" src="assets/img/CuerpoPerimetroCintura.jpg"/> 
+        <img *ngIf="partedelcuerpoquetoca==2" src="assets/img/CuerpoPerimetroCadera.jpg"/> 
+        <img *ngIf="partedelcuerpoquetoca>2" src="assets/img/CuerpoSinPerimetros.jpg"/> 
+
+      </div>
       </ion-col>
-      <ion-col size="9" >
+      <ion-col size="8" >
       <br><br><br>
-      <table style="width:100%">
+      <table style="width:100%;table-layout: fixed;">
         <tr class="center">
           <th></th>
           <th></th>
-          <th class="holgura">Holgura Deseada</th>
         </tr>
         <tr class="center">
           <td><b>Pecho</b></td>
           <td *ngIf="this.medida[0]">{{this.medida[0]}} cm</td>
           <td *ngIf="!this.medida[0]" class="invisible">90.641454 cm</td>
-          <td class="holgura">
+          <!--<td class="holgura">
             <ion-item color="grey">
-                <ion-input class="alingright holgura" type="number" [(ngModel)]="holgura[0]"  max="99"></ion-input> cm
+                <ion-input (change)="changeHolgura()" class="alingright holgura" type="number" [(ngModel)]="holgura[0]"  max="99"></ion-input> cm
             </ion-item>
-          </td>
+          </td>-->
         </tr>
         <tr class="center">
           <td><b>Cintura</b></td>
           <td *ngIf="this.medida[1]">{{this.medida[1]}} cm</td>
           <td *ngIf="!this.medida[1]" class="invisible">90.641454 cm</td>
-          <td class="holgura">
-          <ion-item color="grey">
-                <ion-input class="alingright holgura" type="number" [(ngModel)]="holgura[1]"  max="99"></ion-input> cm
-            </ion-item></td>
         </tr>
         <tr class="center">
           <td><b>Cadera</b></td>
           <td *ngIf="this.medida[2]">{{this.medida[2]}} cm</td>
           <td *ngIf="!this.medida[2]" class="invisible">90.641454 cm</td>
-          <td class="holgura">
-            <ion-item color="grey">
-                <ion-input class="alingright holgura" type="number" [(ngModel)]="holgura[2]"  max="99"></ion-input> cm
-            </ion-item>
-          </td>
         </tr>
       </table>
-      <br> <br>
+      <div class="center">
+      <img style="width:35%"  src="/assets/img/Boton-de-Camara.png" alt="" />
+      </div>
       <div class="padding" *ngIf="partedelcuerpoquetoca<3">
         <p> Fotografía la ventana de la banda de medición de </p>
         <button (click)="takePhoto(partedelcuerpoquetoca)" class="botonParteDelCuerpo"> <h4>{{partesdelcuerpo[partedelcuerpoquetoca]}} </h4></button>
       </div>
-      <br>
-      <br>
       </ion-col>
   </ion-row>
+  <table  style="table-layout: fixed;">
+      <tr class="center" style="background-color:rgb(255, 191, 0)">
+        <th colspan="2" style="padding:0em;"><h3>Seleciona la holgura deseada</h3></th>
+      </tr>
+      <tr>
+        <td class="holgura" style="text-align:right;width: 45%;">
+        <b>PECHO</b>
+        </td>
+        <td class="holgura">
+          <ion-item lines="none" color="grey" style="width:50%" *ngIf="partedelcuerpoquetoca>2">
+              <ion-input text-left (change)="changeHolgura()" class="alingright holgura" type="number" [(ngModel)]="holgura[0]"  max="99"></ion-input> cm
+          </ion-item>
+        </td>
+      </tr>
+        <tr>
+        <td class="holgura" style="text-align:right;width: 45%;">
+        <b>CINTURA</b>
+        </td>
+        <td class="holgura">
+          <ion-item lines="none" color="grey"  style="width:50%" *ngIf="partedelcuerpoquetoca>2">
+              <ion-input text-left (change)="changeHolgura()" class="alingright holgura" type="number" [(ngModel)]="holgura[1]"  max="99"></ion-input> cm
+          </ion-item>
+        </td>
+      </tr>
+        <tr>
+        <td class="holgura" style="text-align:right;width: 45%;">
+        <b>CADERA</b>
+        </td>
+        <td class="holgura">
+          <ion-item lines="none" color="grey"  style="width:50%"  *ngIf="partedelcuerpoquetoca>2">
+              <ion-input no-lines text-left (change)="changeHolgura()" class="alingright holgura" type="number" [(ngModel)]="holgura[2]"  max="99"></ion-input> cm
+          </ion-item>
+        </td>
+      </tr>
+    </table>
   <ion-item>
         <ion-label>Activar Autorecorte</ion-label>
         <ion-toggle [(ngModel)]="autocut"></ion-toggle>
@@ -81,7 +112,7 @@
 <img class="hidden" id="img0" src="{{this.image[0]}}"/> 
 <img class="hidden" id="img1" src="{{this.image[1]}}"/>
 <img class="hidden" id="img2" src="{{this.image[2]}}"/> 
-<img class="hidden" id="cinturon" src="assets/img/test.png"/> 
+<img class="hidden" id="cinturon" src="assets/img/final.png"/> 
 
 
 </ion-content>
