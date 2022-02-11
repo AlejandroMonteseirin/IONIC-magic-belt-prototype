@@ -1,4 +1,4 @@
-# Cinturon Magico 
+# Cinturon Mágico 
 
 Prototipo finalizado.
 
