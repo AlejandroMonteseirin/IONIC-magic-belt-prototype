@@ -20,3 +20,28 @@ All analysis, development, tests and maintenance was made by me.
 IONIC and OpenCV measurements calculus and the camera management.
 
 *This project is not open source and all rights to its source code or resources are reserved, including the reproduction, distribution, or creation of derivative works of the project.*
+
+
+## Working demo video (Not profesional)
+
+### General working
+
+
+
+
+https://user-images.githubusercontent.com/33956661/153583757-a37fba70-1153-4604-8c1f-6faeb9f1f136.mp4
+
+
+
+https://user-images.githubusercontent.com/33956661/153583762-86404994-9753-4e5a-8de3-c3fa937ff41d.mp4
+
+
+
+
+
+
+
+
+### Read the magic belt demo
+
+https://user-images.githubusercontent.com/33956661/153583764-74fa371a-943f-4757-9479-fb309d7ce24e.mp4
