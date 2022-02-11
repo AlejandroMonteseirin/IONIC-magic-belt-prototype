@@ -7,7 +7,7 @@ Todo el analisis,desarrollo, pruebas y mantenimiento fue hecho por mi.
 
 Basada en IONIC, utiliza OpenCV para el calculo de las mediciones del cinturón.
 
-*Este proyecto no es open source y todos los derechos sobre su código fuente están reservados, incluyendo la reproducción, distribución o la creacion de trabajos derivados de el proyecto*
+*Este proyecto no es open source y todos los derechos sobre su código fuente o recursos están reservados, incluyendo la reproducción, distribución o la creacion de trabajos derivados de el proyecto*
 
 
 # Magic belt
@@ -19,4 +19,4 @@ All analysis, development, tests and maintenance was made by me.
 
 IONIC and OpenCV measurements calculus and the camera management.
 
-*This project is not open source and all rights to its source code are reserved, including the reproduction, distribution, or creation of derivative works of the project.*
+*This project is not open source and all rights to its source code or resources are reserved, including the reproduction, distribution, or creation of derivative works of the project.*
