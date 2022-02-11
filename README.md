@@ -11,7 +11,9 @@ Basada en IONIC, utiliza OpenCV para el calculo de las mediciones del cinturón.
 
 # Magic belt
 
-Untangled idea with serious over-engineering problems of my ex-uncle inventor, of a "magical" belt that, by means of a special belt and the mobile camera, allows you to calculate your measurements.
+Finished prototype.
+
+Untangled idea with serious over-engineering problems of my inventor ex-uncle, of a "magical" belt that, by means of a special belt and the mobile camera, allows you to calculate your measurements.
 
 IONIC and OpenCV measurements calculus and the camera management.
 
