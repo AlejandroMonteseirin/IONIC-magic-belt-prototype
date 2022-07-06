@@ -1,8 +1,8 @@
 # Cinturon Mágico 
 
-Prototipo finalizado.
 
-Idea descabellada con graves problemas de sobreingenieria de mi extio inventor, de un cinturón "magico" que mediante una cinta especial y la camara del movil permite calcular tus mediciones.
+
+Prototipo finalizado de una aplicacion en IONIC que mediante una cinta especial y la camara del movil permite calcular tus mediciones exactas.
 Todo el analisis,desarrollo, pruebas y mantenimiento fue hecho por mi.
 
 Basada en IONIC, utiliza OpenCV para el calculo de las mediciones del cinturón.
@@ -12,9 +12,7 @@ Basada en IONIC, utiliza OpenCV para el calculo de las mediciones del cinturón.
 
 # Magic belt
 
-Finished prototype.
-
-no-sense idea with serious over-engineering problems of my inventor ex-uncle, of a "magical" belt that, by means of a special belt and the mobile camera, allows you to calculate your measurements.
+Finished prototype of a "magical" belt that, by means of a special belt and the mobile camera, allows you to calculate your measurements.
 All analysis, development, tests and maintenance was made by me.
 
 IONIC and OpenCV measurements calculus and the camera management.
